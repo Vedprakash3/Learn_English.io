@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>नक्षत्र - 9 ग्रह & Learning</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f9f9f9; }
+.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 360px; margin: 20px auto; }
+.grid-container button { 
+    width: 100%; 
+    height: 80px; 
+    font-size: 18px; 
+    background-color: #4CAF50; 
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+.grid-container button:hover { background-color: #45a049; }
+.nakshatra { 
+    font-size: 18px; 
+    color: #333; 
+    margin-top: 20px; 
+    padding: 15px; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    max-width: 95%; 
+    margin: 20px auto; 
+    line-height: 1.6; 
+    overflow-x:auto; 
+    white-space: normal; 
+    text-align:left; 
+}
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+th { background-color: #4CAF50; color: white; }
+.section-header { background-color: #FFC107; color: #000; text-align: center; font-size: 18px; font-weight: bold; }
+tr:nth-child(even) td { background-color: #FFCDD2; }
+tr:nth-child(odd) td { background-color: #BBDEFB; }
+</style>
+</head>
+<body>
+
+<h1>Learn English</h1>
+
+<div class="grid-container">
+<button onclick="showNakshatra(1)">Fruits<br>1</button>
+<button onclick="showNakshatra(2)">Vegetables<br>2</button>
+<button onclick="showNakshatra(3)">Tables<br>3</button>
+<button onclick="showNakshatra(4)">ABCD<br>4</button>
+<button onclick="showNakshatra(5)">Animals<br>5</button>
+<button onclick="showNakshatra(6)">Birds<br>6</button>
+<button onclick="showNakshatra(7)">Tenses<br>7</button>
+<button onclick="showNakshatra(8)">Direct-Indirect<br>8</button>
+<button onclick="showNakshatra(9)">Informal-Formal<br>9</button>
+</div>
+
+<div id="nakshatra" class="nakshatra"></div>
+
+<script>
+const nakshatras = [
+
+`<table>
+<tr class="section-header"><th colspan="2">Fruits (Phal)</th></tr>
+<tr><th>Hindi</th><th>English</th></tr>
+<tr><td>Aam</td><td>Mango</td></tr>
+<tr><td>Seb</td><td>Apple</td></tr>
+<tr><td>Kela</td><td>Banana</td></tr>
+<tr><td>Santara</td><td>Orange</td></tr>
+<tr><td>Anar</td><td>Pomegranate</td></tr>
+<tr><td>Angoor</td><td>Grapes</td></tr>
+<tr><td>Nariyal</td><td>Coconut</td></tr>
+<tr><td>Papita</td><td>Papaya</td></tr>
+<tr><td>Tarbooj</td><td>Watermelon</td></tr>
+<tr><td>Leechi</td><td>Lychee</td></tr>
+<tr><td>Peru</td><td>Guava</td></tr>
+</table>`,
+
+`<table>
+<tr class="section-header"><th colspan="2">Vegetables (Sabziyaan)</th></tr>
+<tr><th>Hindi</th><th>English</th></tr>
+<tr><td>Aloo</td><td>Potato</td></tr>
+<tr><td>Pyaz</td><td>Onion</td></tr>
+<tr><td>Tamatar</td><td>Tomato</td></tr>
+<tr><td>Bhindi</td><td>Ladyfinger</td></tr>
+<tr><td>Baingan</td><td>Brinjal</td></tr>
+<tr><td>Gajar</td><td>Carrot</td></tr>
+<tr><td>Gobhi</td><td>Cauliflower</td></tr>
+<tr><td>Matar</td><td>Peas</td></tr>
+<tr><td>Lauki</td><td>Bottle Gourd</td></tr>
+<tr><td>Shimla Mirch</td><td>Capsicum</td></tr>
+<tr><td>Sem</td><td>Beans</td></tr>
+<tr><td>Nenua</td><td>Sponge Gourd</td></tr>
+<tr><td>Turai</td><td>Ridge Gourd</td></tr>
+</table>`,
+
+`<div><strong>Multiplication Tables 2 to 20</strong><br>
+<table>${[...Array(19)].map((_,n)=>`<tr>${[...Array(10)].map((_,i)=>`<td>${n+2}×${i+1}=${(n+2)*(i+1)}</td>`).join('')}</tr>`).join('')}</table>
+</div>`,
+
+`<div><strong>English Alphabets (A to Z)</strong><br>
+<table>
+<tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td></tr>
+<tr><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td></tr>
+<tr><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td></td><td></td><td></td><td></td></tr>
+</table>
+</div>`,
+
+`<table>
+<tr class="section-header"><th colspan="2">Animals</th></tr>
+<tr><th>Hindi</th><th>English</th></tr>
+<tr><td>Gadha</td><td>Donkey</td></tr>
+<tr><td>Ghoda</td><td>Horse</td></tr>
+<tr><td>Gaay</td><td>Cow</td></tr>
+<tr><td>Billi</td><td>Cat</td></tr>
+<tr><td>Kutta</td><td>Dog</td></tr>
+<tr><td>Hiran</td><td>Deer</td></tr>
+<tr><td>Haathi</td><td>Elephant</td></tr>
+<tr><td>Sher</td><td>Lion</td></tr>
+<tr><td>Bhalu</td><td>Bear</td></tr>
+<tr><td>Oont</td><td>Camel</td></tr>
+</table>`,
+
+`<table>
+<tr class="section-header"><th colspan="2">Birds</th></tr>
+<tr><th>Hindi</th><th>English</th></tr>
+<tr><td>Mor</td><td>Peacock</td></tr>
+<tr><td>Kabootar</td><td>Pigeon</td></tr>
+<tr><td>Chidiya</td><td>Bird</td></tr>
+<tr><td>Hans</td><td>Swan</td></tr>
+<tr><td>Bagula</td><td>Heron</td></tr>
+<tr><td>Totaa</td><td>Parrot</td></tr>
+<tr><td>Chakora</td><td>Chakora Bird</td></tr>
+<tr><td>Kaag</td><td>Crow</td></tr>
+<tr><td>Baltuk</td><td>Kingfisher</td></tr>
+<tr><td>Uluka</td><td>Owl</td></tr>
+</table>`,
+
+`<table>
+<tr class="section-header"><th colspan="2">Tenses</th></tr>
+<tr><th>Type</th><th>Example & Practice</th></tr>
+<tr><td>Present Simple</td><td style="background-color:#FFEB3B">I eat breakfast at 8 AM.<br>What do you do every day?</td></tr>
+<tr><td>Present Continuous</td><td style="background-color:#FFEB3B">I am learning English now.<br>What are you doing right now?</td></tr>
+<tr><td>Present Perfect</td><td style="background-color:#FFEB3B">I have finished my homework.<br>Have you ever traveled to another country?</td></tr>
+<tr><td>Present Perfect Continuous</td><td style="background-color:#FFEB3B">I have been learning English for two months.<br>How long have you been practicing English?</td></tr>
+<tr><td>Past Simple</td><td style="background-color:#FF9800">I watched a movie yesterday.<br>What did you do last weekend?</td></tr>
+<tr><td>Past Continuous</td><td style="background-color:#FF9800">I was studying when you called.<br>What were you doing at 8 PM last night?</td></tr>
+<tr><td>Past Perfect</td><td style="background-color:#FF9800">I had already eaten when she arrived.<br>Had you finished your homework before the teacher came?</td></tr>
+<tr><td>Past Perfect Continuous</td><td style="background-color:#FF9800">I had been waiting for two hours before the train arrived.<br>How long had you been working in your previous job?</td></tr>
+<tr><td>Future Simple</td><td style="background-color:#4CAF50">I will call you tomorrow.<br>What will you do tomorrow?</td></tr>
+<tr><td>Future Continuous</td><td style="background-color:#4CAF50">I will be studying at 5 PM.<br>What will you be doing at 7 PM tomorrow?</td></tr>
+<tr><td>Future Perfect</td><td style="background-color:#4CAF50">I will have completed my project by next week.<br>Will you have finished your work by 6 PM?</td></tr>
+<tr><td>Future Perfect Continuous</td><td style="background-color:#4CAF50">By next year, I will have been working here for five years.<br>How long will you have been learning English by next month?</td></tr>
+</table>`,
+
+`<table>
+<tr class="section-header"><th colspan="2">Direct & Indirect Speech</th></tr>
+<tr><td>Simple Present → Simple Past</td><td>Direct: She says, "I eat an apple."<br>Indirect: She said that she ate an apple.</td></tr>
+<tr><td>Present Continuous → Past Continuous</td><td>Direct: He says, "I am playing football."<br>Indirect: He said that he was playing football.</td></tr>
+<tr><td>Present Perfect → Past Perfect</td><td>Direct: She says, "I have finished my homework."<br>Indirect: She said that she had finished her homework.</td></tr>
+<tr><td>Present Perfect Continuous → Past Perfect Continuous</td><td>Direct: He says, "I have been reading for two hours."<br>Indirect: He said that he had been reading for two hours.</td></tr>
+<tr><td>Simple Past → Past Perfect</td><td>Direct: She said, "I visited the museum."<br>Indirect: She said that she had visited the museum.</td></tr>
+<tr><td>Past Continuous → Past Perfect Continuous</td><td>Direct: He said, "I was watching TV."<br>Indirect: He said that he had been watching TV.</td></tr>
+<tr><td>Past Perfect → No Change</td><td>Direct: She said, "I had met him before."<br>Indirect: She said that she had met him before.</td></tr>
+<tr><td>Past Perfect Continuous → No Change</td><td>Direct: He said, "I had been studying for two hours."<br>Indirect: He said that he had been studying for two hours.</td></tr>
+<tr><td>Simple Future → Future Conditional (would)</td><td>Direct: She said, "I will go to the market."<br>Indirect: She said that she would go to the market.</td></tr>
+<tr><td>May → Might</td><td>Direct: He said, "I may come tomorrow."<br>Indirect: He said that he might come the next day.</td></tr>
+<tr><td>Can → Could</td><td>Direct: She said, "I can swim."<br>Indirect: She said that she could swim.</td></tr>
+<tr><td>Must → Had to</td><td>Direct: He said, "I must finish this work."<br>Indirect: He said that he had to finish that work.</td></tr>
+</table>`,
+
+`<table>
+<tr class="section-header"><th colspan="3">Informal → Formal Sentences</th></tr>
+<tr><th>#</th><th>Informal</th><th>Formal</th></tr>
+<tr><td>1</td><td>Can I borrow your pen?</td><td>May I borrow your pen?</td></tr>
+<tr><td>2</td><td>Give me a hand.</td><td>Could you help me, please?</td></tr>
+<tr><td>3</td><td>What’s up?</td><td>How are you?</td></tr>
+<tr><td>4</td><td>I want to go home.</td><td>I would like to go home.</td></tr>
+<tr><td>5</td><td>Tell me the truth.</td><td>Kindly tell me the truth.</td></tr>
+<tr><td>6</td><td>I need your help.</td><td>I would appreciate your assistance.</td></tr>
+<tr><td>7</td><td>Give me that book.</td><td>Could you please give me that book?</td></tr>
+<tr><td>8</td><td>Hurry up!</td><td>Please be quick.</td></tr>
+<tr><td>9</td><td>Sorry!</td><td>I apologize.</td></tr>
+<tr><td>10</td><td>Wait a minute.</td><td>Kindly wait for a moment.</td></tr>
+</table>`,
+
+];
+
+function showNakshatra(number){
+    document.getElementById("nakshatra").innerHTML = nakshatras[number-1];
+}
+</script>
+
+</body>
+</html>

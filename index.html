@@ -194,24 +194,46 @@ th {
 
 </div>
 
+
 <script>
 function toggle(element) {
+    const allContents = document.querySelectorAll(".content");
+
+    // Sab close karo (except current one)
+    allContents.forEach(content => {
+        if (content !== element.nextElementSibling) {
+            content.style.display = "none";
+        }
+    });
+
+    // Current toggle karo
     const content = element.nextElementSibling;
-    content.style.display = content.style.display === "block" ? "none" : "block";
+    content.style.display = (content.style.display === "block") ? "none" : "block";
 }
 
-/* Tables 2 to 20 */
-let tablesHTML = "<table><tr class='section-header'><th>Multiplication Tables</th></tr><tr><td>";
-for (let i = 2; i <= 20; i++) {
-    tablesHTML += "<strong>" + i + " Table</strong><br>";
-    for (let j = 1; j <= 10; j++) {
-        tablesHTML += i + " × " + j + " = " + (i * j) + "<br>";
+/* Multiplication Tables (2 to 20) */
+function generateTables() {
+    let html = "";
+
+    for (let i = 2; i <= 20; i++) {
+        html += `<h3>${i} Table</h3>`;
+
+        for (let j = 1; j <= 10; j++) {
+            html += `${i} × ${j} = ${i * j}<br>`;
+        }
+
+        html += "<hr>";
     }
-    tablesHTML += "<hr>";
+
+    document.getElementById("tablesContent").innerHTML = html;
 }
-tablesHTML += "</td></tr></table>";
-document.getElementById("tablesContent").innerHTML = tablesHTML;
+
+// Page load hote hi tables generate ho jaye
+window.onload = function () {
+    generateTables();
+};
 </script>
+
 
 </body>
 </html>

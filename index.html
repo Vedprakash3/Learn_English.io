@@ -76,6 +76,48 @@ th {
     font-size: 18px;
     font-weight: bold;
 }
+
+/* Horizontal Tables Scroll */
+#tablesContent {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px;
+    white-space: nowrap;
+    scrollbar-width: thin;
+}
+
+.table-box {
+    min-width: 180px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.table-box h3 {
+    text-align: center;
+    background: #4a90e2;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.table-box div {
+    text-align: left;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+hr {
+    display: none;
+}
 </style>
 </head>
 
@@ -136,7 +178,9 @@ th {
 <!-- Tables -->
 <div class="card">
     <h2 onclick="toggle(this)">Tables (2 to 20)</h2>
-    <div class="content" id="tablesContent"></div>
+    <div class="content">
+        <div id="tablesContent"></div>
+    </div>
 </div>
 
 <!-- ABCD -->
@@ -194,46 +238,47 @@ th {
 
 </div>
 
-
 <script>
 function toggle(element) {
     const allContents = document.querySelectorAll(".content");
 
-    // Sab close karo (except current one)
     allContents.forEach(content => {
         if (content !== element.nextElementSibling) {
             content.style.display = "none";
         }
     });
 
-    // Current toggle karo
     const content = element.nextElementSibling;
     content.style.display = (content.style.display === "block") ? "none" : "block";
 }
 
-/* Multiplication Tables (2 to 20) */
 function generateTables() {
     let html = "";
 
     for (let i = 2; i <= 20; i++) {
-        html += `<h3>${i} Table</h3>`;
+        html += `
+            <div class="table-box">
+                <h3>${i} Table</h3>
+                <div>
+        `;
 
         for (let j = 1; j <= 10; j++) {
             html += `${i} × ${j} = ${i * j}<br>`;
         }
 
-        html += "<hr>";
+        html += `
+                </div>
+            </div>
+        `;
     }
 
     document.getElementById("tablesContent").innerHTML = html;
 }
 
-// Page load hote hi tables generate ho jaye
 window.onload = function () {
     generateTables();
 };
 </script>
-
 
 </body>
 </html>

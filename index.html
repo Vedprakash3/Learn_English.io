@@ -44,6 +44,30 @@ header {
     font-size: 18px;
 }
 
+/* Audio Controls for each card */
+.audio-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.audio-btn {
+    padding: 6px 15px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.play-btn { background-color: #28a745; color: white; }
+.play-btn:hover { background-color: #218838; }
+.stop-btn { background-color: #dc3545; color: white; }
+.stop-btn:hover { background-color: #c82333; }
+
 .content {
     display: none;
     padding: 15px;
@@ -130,9 +154,13 @@ hr {
 <div class="container">
 
 <!-- Fruits -->
-<div class="card">
+<div class="card" id="card-fruits">
     <h2 onclick="toggle(this)">Fruits</h2>
     <div class="content">
+        <div class="audio-controls">
+            <button class="audio-btn play-btn" onclick="readTable('card-fruits')">🔊 Listen</button>
+            <button class="audio-btn stop-btn" onclick="stopReading()">🛑 Stop</button>
+        </div>
         <table>
             <tr class="section-header"><th colspan="2">Fruits (Phal)</th></tr>
             <tr><th>Hindi</th><th>English</th></tr>
@@ -152,9 +180,13 @@ hr {
 </div>
 
 <!-- Vegetables -->
-<div class="card">
+<div class="card" id="card-veg">
     <h2 onclick="toggle(this)">Vegetables</h2>
     <div class="content">
+        <div class="audio-controls">
+            <button class="audio-btn play-btn" onclick="readTable('card-veg')">🔊 Listen</button>
+            <button class="audio-btn stop-btn" onclick="stopReading()">🛑 Stop</button>
+        </div>
         <table>
             <tr class="section-header"><th colspan="2">Vegetables (Sabziyaan)</th></tr>
             <tr><th>Hindi</th><th>English</th></tr>
@@ -176,17 +208,25 @@ hr {
 </div>
 
 <!-- Tables -->
-<div class="card">
+<div class="card" id="card-tables">
     <h2 onclick="toggle(this)">Tables (2 to 20)</h2>
     <div class="content">
+        <div class="audio-controls">
+            <button class="audio-btn play-btn" onclick="readMathTables()">🔊 Listen</button>
+            <button class="audio-btn stop-btn" onclick="stopReading()">🛑 Stop</button>
+        </div>
         <div id="tablesContent"></div>
     </div>
 </div>
 
 <!-- ABCD -->
-<div class="card">
+<div class="card" id="card-abcd">
     <h2 onclick="toggle(this)">ABCD</h2>
     <div class="content">
+        <div class="audio-controls">
+            <button class="audio-btn play-btn" onclick="readABCD()">🔊 Listen</button>
+            <button class="audio-btn stop-btn" onclick="stopReading()">🛑 Stop</button>
+        </div>
         <table>
             <tr class="section-header"><th colspan="10">English Alphabets</th></tr>
             <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td></tr>
@@ -197,9 +237,13 @@ hr {
 </div>
 
 <!-- Animals -->
-<div class="card">
+<div class="card" id="card-animals">
     <h2 onclick="toggle(this)">Animals</h2>
     <div class="content">
+        <div class="audio-controls">
+            <button class="audio-btn play-btn" onclick="readTable('card-animals')">🔊 Listen</button>
+            <button class="audio-btn stop-btn" onclick="stopReading()">🛑 Stop</button>
+        </div>
         <table>
             <tr class="section-header"><th colspan="2">Animals</th></tr>
             <tr><th>Hindi</th><th>English</th></tr>
@@ -218,9 +262,13 @@ hr {
 </div>
 
 <!-- Birds -->
-<div class="card">
+<div class="card" id="card-birds">
     <h2 onclick="toggle(this)">Birds</h2>
     <div class="content">
+        <div class="audio-controls">
+            <button class="audio-btn play-btn" onclick="readTable('card-birds')">🔊 Listen</button>
+            <button class="audio-btn stop-btn" onclick="stopReading()">🛑 Stop</button>
+        </div>
         <table>
             <tr class="section-header"><th colspan="2">Birds</th></tr>
             <tr><th>Hindi</th><th>English</th></tr>
@@ -230,8 +278,8 @@ hr {
             <tr><td>Hans</td><td>Swan</td></tr>
             <tr><td>Bagula</td><td>Heron</td></tr>
             <tr><td>Totaa</td><td>Parrot</td></tr>
-            <tr><td>Kaag</td><td>Crow</td></tr>
-            <tr><td>Uluka</td><td>Owl</td></tr>
+            <tr><td>Kauwa</td><td>Crow</td></tr>
+            <tr><td>Ulloo</td><td>Owl</td></tr>
         </table>
     </div>
 </div>
@@ -239,7 +287,10 @@ hr {
 </div>
 
 <script>
+let currentUtterance = null;
+
 function toggle(element) {
+    stopReading(); // कार्ड बदलते ही आवाज़ बंद हो जाएगी
     const allContents = document.querySelectorAll(".content");
 
     allContents.forEach(content => {
@@ -254,25 +305,88 @@ function toggle(element) {
 
 function generateTables() {
     let html = "";
-
     for (let i = 2; i <= 20; i++) {
         html += `
             <div class="table-box">
                 <h3>${i} Table</h3>
                 <div>
         `;
-
         for (let j = 1; j <= 10; j++) {
             html += `${i} × ${j} = ${i * j}<br>`;
         }
-
         html += `
                 </div>
             </div>
         `;
     }
-
     document.getElementById("tablesContent").innerHTML = html;
+}
+
+// 1. फलों, सब्जियों, जानवरों और पक्षियों के लिए (Hindi -> English Format)
+function readTable(cardId) {
+    stopReading();
+    const rows = document.querySelectorAll(`#${cardId} table tr`);
+    let textToRead = "";
+
+    rows.forEach((row, index) => {
+        // हेडर लाइन्स को छोड़ दें
+        if (index > 1) {
+            const cells = row.querySelectorAll("td");
+            if (cells.length >= 2) {
+                let hindi = cells[0].innerText;
+                let english = cells[1].innerText;
+                textToRead += `${hindi} को इंग्लिश में कहते हैं ${english}.... \n`;
+            }
+        }
+    });
+
+    speakText(textToRead, 'hi-IN');
+}
+
+// 2. ABCD पढ़ने के लिए
+function readABCD() {
+    stopReading();
+    const cells = document.querySelectorAll("#card-abcd table td");
+    let abcdText = "";
+    
+    cells.forEach(cell => {
+        if (cell.innerText.trim() !== "") {
+            abcdText += cell.innerText + ", ";
+        }
+    });
+
+    speakText("English Alphabets... " + abcdText, 'en-US');
+}
+
+// 3. मैथ्स टेबल्स (पहाड़े) पढ़ने के लिए
+function readMathTables() {
+    stopReading();
+    let tableText = "";
+
+    // अभी जो टेबल दिख रही हो या सभी को थोड़ा सा पढ़ना
+    for (let i = 2; i <= 20; i++) {
+        tableText += `Table of ${i}.... `;
+        for (let j = 1; j <= 10; j++) {
+            tableText += `${i} times ${j} is ${i * j}, `;
+        }
+        tableText += `.... \n`;
+    }
+
+    speakText(tableText, 'en-US');
+}
+
+// Common function to execute Speech
+function speakText(text, lang) {
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    currentUtterance.lang = lang;
+    currentUtterance.rate = 0.9; // धीमे पढ़ने के लिए ताकि बच्चे समझ सकें
+    window.speechSynthesis.speak(currentUtterance);
+}
+
+function stopReading() {
+    if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+    }
 }
 
 window.onload = function () {
